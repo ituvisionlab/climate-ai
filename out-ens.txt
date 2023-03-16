@@ -1,0 +1,139 @@
+/home/bugra/anaconda3/envs/bugra/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.2
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+DIRECTORY ALREADY EXISTS, continuing
+[-38 -37 -36 -35 -34 -26 -25 -24 -23 -22 -14 -13 -12 -11 -10  -2  -1]
+Creating input and output tensors...
+Creating handle...
+Loading data to memory...
+Model initializing: Training starting...
+Epoch: 0, Train Loss: 5.776317, Val Loss: 5.982884, Time: 685.61
+Epoch: 1, Train Loss: 5.777914, Val Loss: 5.979928, Time: 681.52
+Epoch: 2, Train Loss: 5.777209, Val Loss: 6.025497, Time: 681.42
+Epoch: 3, Train Loss: 5.777936, Val Loss: 5.990878, Time: 681.37
+Epoch: 4, Train Loss: 5.777500, Val Loss: 6.006148, Time: 681.67
+Epoch: 5, Train Loss: 5.777147, Val Loss: 5.952552, Time: 681.44
+Epoch: 6, Train Loss: 5.776650, Val Loss: 5.954305, Time: 681.40
+Epoch: 7, Train Loss: 5.776634, Val Loss: 6.009380, Time: 681.62
+Epoch: 8, Train Loss: 5.776808, Val Loss: 5.984441, Time: 681.26
+Epoch: 9, Train Loss: 5.776524, Val Loss: 6.017533, Time: 680.38
+Epoch: 10, Train Loss: 5.777438, Val Loss: 5.986425, Time: 673.14
+Epoch: 11, Train Loss: 5.778974, Val Loss: 5.964522, Time: 670.80
+Epoch: 12, Train Loss: 5.778702, Val Loss: 5.903491, Time: 670.67
+Epoch: 13, Train Loss: 5.775415, Val Loss: 5.961269, Time: 670.43
+Epoch: 14, Train Loss: 5.777036, Val Loss: 6.044443, Time: 669.60
+Epoch: 15, Train Loss: 5.777105, Val Loss: 5.953173, Time: 670.07
+Epoch: 16, Train Loss: 5.778331, Val Loss: 5.975563, Time: 669.98
+Epoch: 17, Train Loss: 5.777281, Val Loss: 6.018593, Time: 669.66
+Epoch: 18, Train Loss: 5.777617, Val Loss: 5.989134, Time: 669.90
+Epoch: 19, Train Loss: 5.775931, Val Loss: 5.995650, Time: 669.82
+Epoch: 20, Train Loss: 5.776250, Val Loss: 6.008661, Time: 669.87
+Epoch: 21, Train Loss: 5.777369, Val Loss: 5.981511, Time: 669.48
+Epoch: 22, Train Loss: 5.775306, Val Loss: 5.978905, Time: 669.31
+Epoch: 23, Train Loss: 5.778099, Val Loss: 5.951474, Time: 669.24
+Epoch: 24, Train Loss: 5.775448, Val Loss: 5.980347, Time: 669.74
+Epoch: 25, Train Loss: 5.776724, Val Loss: 5.986082, Time: 670.52
+Epoch: 26, Train Loss: 5.776996, Val Loss: 6.012796, Time: 670.22
+Epoch: 27, Train Loss: 5.777461, Val Loss: 5.959018, Time: 670.82
+Epoch: 28, Train Loss: 5.778941, Val Loss: 5.974071, Time: 671.00
+Epoch: 29, Train Loss: 5.776433, Val Loss: 6.018267, Time: 670.60
+Epoch: 30, Train Loss: 5.778407, Val Loss: 5.968984, Time: 670.62
+Epoch: 31, Train Loss: 5.776299, Val Loss: 5.995608, Time: 670.75
+Epoch: 32, Train Loss: 5.776693, Val Loss: 6.011791, Time: 670.94
+Epoch: 33, Train Loss: 5.778286, Val Loss: 5.947381, Time: 671.09
+Epoch: 34, Train Loss: 5.776191, Val Loss: 6.024850, Time: 671.60
+Epoch: 35, Train Loss: 5.778691, Val Loss: 5.981199, Time: 670.93
+Epoch: 36, Train Loss: 5.778089, Val Loss: 5.996655, Time: 671.05
+Epoch: 37, Train Loss: 5.777611, Val Loss: 5.965461, Time: 671.27
+Epoch: 38, Train Loss: 5.777417, Val Loss: 5.934200, Time: 671.14
+Epoch: 39, Train Loss: 5.778356, Val Loss: 5.951661, Time: 670.56
+Epoch: 40, Train Loss: 5.776990, Val Loss: 6.042961, Time: 670.87
+Epoch: 41, Train Loss: 5.776279, Val Loss: 5.997706, Time: 671.33
+Epoch: 42, Train Loss: 5.777042, Val Loss: 6.098965, Time: 671.26
+Epoch: 43, Train Loss: 5.776772, Val Loss: 6.020845, Time: 671.44
+Epoch: 44, Train Loss: 5.778803, Val Loss: 6.015353, Time: 671.32
+Epoch: 45, Train Loss: 5.777143, Val Loss: 5.985500, Time: 671.27
+Epoch: 46, Train Loss: 5.776131, Val Loss: 5.989959, Time: 670.97
+Epoch: 47, Train Loss: 5.777172, Val Loss: 6.026308, Time: 671.16
+Epoch: 48, Train Loss: 5.776223, Val Loss: 5.971433, Time: 671.25
+Epoch: 49, Train Loss: 5.778607, Val Loss: 5.906328, Time: 670.51
+Epoch: 50, Train Loss: 5.777064, Val Loss: 5.999492, Time: 671.16
+Epoch: 51, Train Loss: 5.776868, Val Loss: 5.981075, Time: 671.01
+Epoch: 52, Train Loss: 5.778150, Val Loss: 5.977563, Time: 671.43
+Epoch: 53, Train Loss: 5.776998, Val Loss: 5.948631, Time: 671.20
+Epoch: 54, Train Loss: 5.777394, Val Loss: 5.923561, Time: 671.63
+Epoch: 55, Train Loss: 5.775323, Val Loss: 5.930311, Time: 670.26
+Epoch: 56, Train Loss: 5.777944, Val Loss: 6.051004, Time: 671.42
+Epoch: 57, Train Loss: 5.776943, Val Loss: 5.982584, Time: 671.15
+Epoch: 58, Train Loss: 5.776104, Val Loss: 6.011239, Time: 671.34
+Epoch: 59, Train Loss: 5.776613, Val Loss: 5.954699, Time: 671.13
+Epoch: 60, Train Loss: 5.778453, Val Loss: 5.999238, Time: 670.77
+Epoch: 61, Train Loss: 5.776901, Val Loss: 6.015869, Time: 670.71
+Epoch: 62, Train Loss: 5.777715, Val Loss: 5.988108, Time: 670.89
+Epoch: 63, Train Loss: 5.777606, Val Loss: 6.001108, Time: 669.87
+Epoch: 64, Train Loss: 5.776842, Val Loss: 5.965910, Time: 670.89
+Epoch: 65, Train Loss: 5.777989, Val Loss: 5.996519, Time: 670.92
+Epoch: 66, Train Loss: 5.777157, Val Loss: 6.016690, Time: 670.85
+Epoch: 67, Train Loss: 5.777415, Val Loss: 5.898726, Time: 670.70
+Epoch: 68, Train Loss: 5.776591, Val Loss: 5.989750, Time: 670.98
+Epoch: 69, Train Loss: 5.775634, Val Loss: 5.965431, Time: 671.00
+Epoch: 70, Train Loss: 5.777994, Val Loss: 5.997535, Time: 671.09
+Epoch: 71, Train Loss: 5.777578, Val Loss: 5.948895, Time: 670.88
+Epoch: 72, Train Loss: 5.776781, Val Loss: 5.996724, Time: 668.88
+Epoch: 73, Train Loss: 5.778351, Val Loss: 6.009510, Time: 666.17
+Epoch: 74, Train Loss: 5.777094, Val Loss: 6.008993, Time: 665.71
+Epoch: 75, Train Loss: 5.776077, Val Loss: 6.016421, Time: 665.32
+Epoch: 76, Train Loss: 5.775774, Val Loss: 5.980140, Time: 665.38
+Epoch: 77, Train Loss: 5.776500, Val Loss: 5.940702, Time: 665.14
+Epoch: 78, Train Loss: 5.775985, Val Loss: 6.001943, Time: 664.75
+Epoch: 79, Train Loss: 5.777417, Val Loss: 5.986882, Time: 665.02
+Epoch: 80, Train Loss: 5.776800, Val Loss: 5.957882, Time: 664.80
+Epoch: 81, Train Loss: 5.775236, Val Loss: 5.988149, Time: 664.66
+Epoch: 82, Train Loss: 5.777623, Val Loss: 5.994232, Time: 664.83
+Epoch: 83, Train Loss: 5.777041, Val Loss: 5.970242, Time: 664.67
+Epoch: 84, Train Loss: 5.777155, Val Loss: 6.020615, Time: 664.73
+Epoch: 85, Train Loss: 5.778036, Val Loss: 5.938283, Time: 664.77
+Epoch: 86, Train Loss: 5.778973, Val Loss: 5.992041, Time: 664.71
+Epoch: 87, Train Loss: 5.776526, Val Loss: 6.031683, Time: 664.46
+Epoch: 88, Train Loss: 5.774983, Val Loss: 5.971544, Time: 664.61
+Epoch: 89, Train Loss: 5.777754, Val Loss: 5.963624, Time: 664.70
+Epoch: 90, Train Loss: 5.777194, Val Loss: 6.003598, Time: 665.05
+Epoch: 91, Train Loss: 5.778318, Val Loss: 6.021267, Time: 664.23
+Epoch: 92, Train Loss: 5.776872, Val Loss: 6.031571, Time: 664.98
+Epoch: 93, Train Loss: 5.777665, Val Loss: 6.009075, Time: 664.48
+Epoch: 94, Train Loss: 5.777464, Val Loss: 6.026926, Time: 664.13
+Epoch: 95, Train Loss: 5.778303, Val Loss: 5.972989, Time: 664.39
+Epoch: 96, Train Loss: 5.777000, Val Loss: 5.985266, Time: 664.45
+Epoch: 97, Train Loss: 5.777796, Val Loss: 5.992475, Time: 664.53
+Epoch: 98, Train Loss: 5.777489, Val Loss: 6.011966, Time: 664.67
+Epoch: 99, Train Loss: 5.778047, Val Loss: 6.011965, Time: 664.02
+Epoch: 0, Train Loss: 5.612302, Val Loss: 5.688556, Time: 664.66
+Epoch: 1, Train Loss: 5.613059, Val Loss: 5.696328, Time: 664.24
+Epoch: 2, Train Loss: 5.612591, Val Loss: 5.701135, Time: 664.51
+Epoch: 3, Train Loss: 5.612267, Val Loss: 5.717016, Time: 664.51
+Epoch: 4, Train Loss: 5.612485, Val Loss: 5.715110, Time: 664.28
+Epoch: 5, Train Loss: 5.612453, Val Loss: 5.700071, Time: 663.93
+Epoch: 6, Train Loss: 5.611875, Val Loss: 5.674500, Time: 664.84
+Epoch: 7, Train Loss: 5.612621, Val Loss: 5.689012, Time: 664.73
+Epoch: 8, Train Loss: 5.612499, Val Loss: 5.680968, Time: 664.20
+Epoch: 9, Train Loss: 5.612833, Val Loss: 5.699616, Time: 664.56
+Epoch: 10, Train Loss: 5.612477, Val Loss: 5.698311, Time: 664.32
+Epoch: 11, Train Loss: 5.613288, Val Loss: 5.692617, Time: 664.28
+Epoch: 12, Train Loss: 5.612408, Val Loss: 5.691612, Time: 664.32
+Epoch: 13, Train Loss: 5.612714, Val Loss: 5.707867, Time: 664.56
+Epoch: 14, Train Loss: 5.613042, Val Loss: 5.702660, Time: 664.26
+Epoch: 15, Train Loss: 5.611976, Val Loss: 5.717135, Time: 664.20
+Epoch: 16, Train Loss: 5.613643, Val Loss: 5.712130, Time: 664.36
+Epoch: 17, Train Loss: 5.612679, Val Loss: 5.708344, Time: 664.10
+Epoch: 18, Train Loss: 5.612959, Val Loss: 5.704388, Time: 664.27
+Traceback (most recent call last):
+  File "/home/bugra/climate-ai/serial_experiments/climate-ai/cimp6_trainer_ensemble.py", line 339, in <module>
+    train_loss = train_dropout_epoch(model, optimizer, train_loader)
+  File "/home/bugra/climate-ai/serial_experiments/climate-ai/cimp6_trainer_ensemble.py", line 278, in train_dropout_epoch
+    loss.backward()
+  File "/home/bugra/anaconda3/envs/bugra/lib/python3.9/site-packages/torch/_tensor.py", line 488, in backward
+    torch.autograd.backward(
+  File "/home/bugra/anaconda3/envs/bugra/lib/python3.9/site-packages/torch/autograd/__init__.py", line 197, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/home/bugra/anaconda3/envs/bugra/lib/python3.9/site-packages/torch/utils/data/_utils/signal_handling.py", line 66, in handler
+    _error_if_any_worker_fails()
+RuntimeError: DataLoader worker (pid 482463) is killed by signal: Terminated. 

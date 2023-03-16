@@ -10,15 +10,8 @@ import os
 import time
 import matplotlib.pyplot as plt
 
-from modelpadding import UNet
-from model_atten import AttentionUNet
-from model_plusplus import NestedUNet
-from model_plusplus2 import NestedUNet2
-from models.resnext_model import custom_resnext, custom_resnext_pretrained, custom_resnext2, custom_resnext3, custom_resnext4
-from models.seg_models import UNetPlusPlus, PSPNet, DeepLabV3, UNetSE, UNetJ
-from model_bayesian import BayesianUNetPP
+from models.model_bayesian import BayesianUNetPP
 from torch.utils.data import Dataset
-from model_tcn import TCN
 from utils import *
 from evaluators.utils import *
 
@@ -77,6 +70,7 @@ parser.add_argument("--prediction_month", type=int, default=1)
 parser.add_argument("--positional_encoding", type=bool, default=False)
 parser.add_argument("--template_path", type=str, default="CMIP6")
 parser.add_argument("--model", type=str, default="")
+parser.add_argument("--kl_coef", type=int, default=1)
 
 # python trainer.py --years 2 --months 2 --batch_size 32 --epochs 200
 
@@ -89,6 +83,7 @@ prediction_month = parser.parse_args().prediction_month
 positional_encoding = parser.parse_args().positional_encoding
 template_path = parser.parse_args().template_path
 model_name = parser.parse_args().model
+coef = parser.parse_args().kl_coef
 
 main_path = template_path
 
@@ -142,8 +137,8 @@ grid_width = da.shape[1]
 # Standardization parameters
 attribute_norm_vals = {
     "tas": (
-        np.load("../statistics/tas_mean.npy"),
-        np.load("../statistics/tas_std.npy"),
+        np.load("../../statistics/tas_mean.npy"),
+        np.load("../../statistics/tas_std.npy"),
     ),
 }
 
@@ -196,7 +191,7 @@ print("Loading data to memory...")
 vars_data = np.array(handle[ens_ids, :, :, :])
 
 class Reader(Dataset):
-    def __init__(self, split="train"):
+    def __init__(self,split="train"):
 
         valid_months = np.where((input_idx_tensor < 0).sum(1) == 0)[0]
         if split == "train":
@@ -263,6 +258,7 @@ validation_loader = torch.utils.data.DataLoader(
 
 ###### Training functions #####################################################
 
+
 def bayesian_train_epoch(model, optimizer, loader, criterion):
     model.train()
     KL_loss = 0
@@ -282,8 +278,7 @@ def bayesian_train_epoch(model, optimizer, loader, criterion):
         conv_loss = criterion(output_pred, output_data)
         #conv_loss.backward(retain_graph=True)
 
-        #model.freeze_convs()
-        bayes_loss = model.KL_loss()
+        bayes_loss = (1.0/coef)*model.KL_loss()
         loss = conv_loss + bayes_loss
         loss.backward()
 
@@ -310,7 +305,7 @@ def bayesian_val_epoch(model, loader, criterion):
         output_pred = output_pred.reshape(-1, 192, 288)
 
         conv_loss = criterion(output_pred, output_data)
-        bayes_loss = model.KL_loss()
+        bayes_loss = (1.0/coef)*model.KL_loss()
 
         MSE_loss += conv_loss.item()
         KL_loss += bayes_loss.item()
@@ -382,9 +377,10 @@ print("Model initializing: ", end="")
 if positional_encoding:
     input_size += 1
 
-model = model_select(model_name, input_size, output_size).to(device_name)
+model = model_select(model_name, input_size, output_size, device_name).to(device_name)
 
 # Create optimizer
+
 criterion = torch.nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1.0e-3, weight_decay=1.0e-3)
 
@@ -438,12 +434,11 @@ if "bayesian" in model_name.lower():
             )
         print(report)
 else:
-
     train_losses = []
     val_losses = []
 
     for epoch in range(epochs):
-            
+        
         start_time = time.time()
 
         train_loss = train_epoch(model, optimizer, train_loader, criterion)
@@ -462,7 +457,7 @@ else:
             save_model(best_model, train_losses, val_losses, epoch)
 
         if epoch % plot_freq == 0:
-            save_plot(train_losses, val_losses, epoch)
+            save_plot(train_losses, val_losses, "MSE")
 
         report = "Epoch: %d, Train Loss: %.6f, Val Loss: %.6f, Time: %.2f" % (
                 epoch, train_loss, val_loss, time.time() - start_time

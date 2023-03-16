@@ -91,7 +91,7 @@ class BayesianConv2d(nn.Module):
 
 class BBBConv2d(ModuleWrapper):
     def __init__(self, in_channels, out_channels, kernel_size,
-                 stride=1, padding=1, dilation=1, bias=True, priors=None):
+                 stride=1, padding=1, dilation=1, bias=True, priors=None, device='cuda:1'):
 
         super(BBBConv2d, self).__init__()
         self.in_channels = in_channels
@@ -102,7 +102,7 @@ class BBBConv2d(ModuleWrapper):
         self.dilation = dilation
         self.groups = 1
         self.use_bias = bias
-        self.device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device(device if torch.cuda.is_available() else "cpu")
 
         if priors is None:
             priors = {
@@ -230,10 +230,11 @@ class BayesianLinear(nn.Module):
 
 
 class BayesianUNetPP(nn.Module):
-    def __init__(self, num_classes, input_channels=3):
+    def __init__(self, num_classes, input_channels=3, device='cuda:1'):
         super().__init__()
 
         nb_filter = [64, 128, 256, 512]
+        self.device = device
 
         self.pool = nn.MaxPool2d(2, 2)
         self.up = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
@@ -252,7 +253,7 @@ class BayesianUNetPP(nn.Module):
 
         self.conv0_3 = DoubleConv(nb_filter[0]*3+nb_filter[1], nb_filter[0], nb_filter[0])
 
-        self.final = BBBConv2d(nb_filter[0], 1, kernel_size=3)
+        self.final = BBBConv2d(nb_filter[0], 1, kernel_size=3, device=self.device)
         #self.fcn = BayesianLinear(1*192*288, 192*288)
 
     def forward(self, input):

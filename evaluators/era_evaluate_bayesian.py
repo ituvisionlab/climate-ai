@@ -24,17 +24,16 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 import os
+print(os.getcwd())
 
 import argparse
 
-from serial_experiments.model import UNet
-from serial_experiments.model_plusplus import NestedUNet
-from serial_experiments.model_plusplus2 import NestedUNet2
-from serial_experiments.modelpadding import UNet as Unetcircular
-from serial_experiments.models.resnext_model import custom_resnext, custom_resnext2, custom_resnext_pretrained
-from serial_experiments.models.seg_models import UNetPlusPlus, PSPNet, UNetSE, DeepLabV3, UNetJ
-from serial_experiments.model_bayesian import BayesianUNetPP
-from serial_experiments.model_calib import heteroscedastic_loss, calibModel, heteroscedastic_loss2
+from model_plusplus2 import NestedUNet2
+from models.modelpadding import UNet as Unetcircular
+from models.models.resnext_model import custom_resnext, custom_resnext2, custom_resnext_pretrained
+from models.models.seg_models import UNetPlusPlus, PSPNet, UNetSE, DeepLabV3, UNetJ
+from models.model_bayesian import BayesianUNetPP
+from models.model_calib import heteroscedastic_loss, calibModel, heteroscedastic_loss2
 from utils import *
 from metrics import *
 
@@ -260,28 +259,6 @@ for p in range(prediction_month):
             np.savetxt(template_path+"/metric_acc_mae.txt", mae)
             np.savetxt(template_path+"/metric_acc_rmse.txt", rmse)
             plot_metrics(model_type)
-
-            # SHARPNESS
-            # sharpness_per_pixel = np.zeros((stds.shape[1], stds.shape[2]))
-            # for k in range(stds.shape[1]):
-            #     for m in range(stds.shape[2]):
-            #         sharp_metric = uct.sharpness(stds[:, k, m])
-            #         sharpness_per_pixel[k, m] = sharp_metric
-            # plt.imshow(sharpness_per_pixel)
-            # plt.title("Sharpness")
-            # plt.show()
-            # plt.savefig(template_path+"/metric_sharpness.png", dpi=300)
-            # sharpness_per_pixel = np.flip(sharpness_per_pixel, axis=0)
-            # np.savetxt(template_path+"/metric_sharpness.txt", sharpness_per_pixel)
-
-            # NLL
-            # print("Saving NLL...")
-            # all_nll_per_pixel = np.mean(nlls, axis=0)
-            # # plt.imshow(all_nll_per_pixel)
-            # # plt.show()
-            # # plt.savefig(template_path+"/metric_nll.png", dpi=300)
-            # all_nll_per_pixel = np.flip(all_nll_per_pixel, axis=0)
-            # np.savetxt(template_path+"/metric_nll.txt", all_nll_per_pixel)
 
             # MAE and RMSE
 
