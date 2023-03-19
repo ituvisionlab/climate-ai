@@ -119,13 +119,14 @@ def create_input_and_output_tensors(attribute_norm_vals, prediction_month, outpu
     return input_tensor, output_tensor
 
 def get_model_weights(model_type, year, month, prediction_month):
-    current_path = os.path.dirname(os.getcwd())
+    path = os.path.dirname(os.getcwd())
+    current_path = os.path.dirname(path)
     if "finetune" in model_type:
-        model_weight_path = current_path + "/" + model_type + "/weights/CIMP6_year-%d-month-%d-predmont-%d/best.pth" % (year, month, prediction_month)
+        model_weight_path = current_path + "/experiments/" + model_type + "/weights/CIMP6_year-%d-month-%d-predmont-%d/best.pth" % (year, month, prediction_month)
     elif model_type == "CMIP6-UNetppDropout":
-        model_weight_path = current_path + "/" + "CMIP6-finetune-NestedUNet2" + "/weights/CIMP6_year-%d-month-%d-predmont-%d/best.pth" % (year, month, prediction_month)
+        model_weight_path = current_path + "/experiments/" + "CMIP6-finetune-NestedUNet2" + "/weights/CIMP6_year-%d-month-%d-predmont-%d/best.pth" % (year, month, prediction_month)
     else:
-        model_weight_path = current_path + "/" + model_type + "/weights/CIMP6_year-%d-month-%d-+%d/best.pth" % (year, month, prediction_month)
+        model_weight_path = current_path + "/experiments/" + model_type + "/weights/CIMP6_year-%d-month-%d-+%d/best.pth" % (year, month, prediction_month)
     return model_weight_path
 
 

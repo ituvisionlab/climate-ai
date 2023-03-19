@@ -22,20 +22,18 @@ import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-
-import os
-print(os.getcwd())
-
+import os, sys
 import argparse
+sys.path.insert(0, os.path.abspath(".."))
 
-from model_plusplus2 import NestedUNet2
+from models.model_plusplus2 import NestedUNet2
 from models.modelpadding import UNet as Unetcircular
-from models.models.resnext_model import custom_resnext, custom_resnext2, custom_resnext_pretrained
-from models.models.seg_models import UNetPlusPlus, PSPNet, UNetSE, DeepLabV3, UNetJ
+# from models.resnext_model import custom_resnext, custom_resnext2, custom_resnext_pretrained
+# from models.models.seg_models import UNetPlusPlus, PSPNet, UNetSE, DeepLabV3, UNetJ
 from models.model_bayesian import BayesianUNetPP
-from models.model_calib import heteroscedastic_loss, calibModel, heteroscedastic_loss2
 from utils import *
 from metrics import *
+from train_utils import *
 
 import uncertainty_toolbox as uct
 
@@ -145,7 +143,7 @@ lon = np.array(vars_handle["lon"])
 lat = np.array(vars_handle["lat"])
 
 # Generate an area grid in order to let model notice the earth projection errors
-altitude_map = np.load('/home/bugra/climate-ai/serial_experiments/meritdem_aligned_image.npy') / 10
+altitude_map = np.load('../../info/meritdem_aligned_image.npy') / 10
 if model_type == "CMIP6-differentDA":
     da = generate_fake_area_grid(lat, lon)
 if (model_type == "CMIP6-altitude-circular-conv") or (model_type == "CMIP6-finetune-altitude-circular-conv") or (model_type == "CMIP6-UNet-AttentionSE") or (model_type=="CMIP6-UNetPlusPlus" or (model_type == "CMIP6-UNet-AttentionSE-withoutDA") or (model_type == "CMIP6-NestedUNet") or (model_type=="CMIP6-finetune-NestedUNet") or (model_type=="CMIP6-NestedUNet2") or (model_type=="CMIP6-calib1") or (model_type=="CMIP6-BayesianUNetPP")):
@@ -218,7 +216,7 @@ for p in range(prediction_month):
             
             val_input = torch.tensor(input_tensor).float().to(device_name)
             
-            model = BayesianUNetPP(input_channels=input_size + 1, num_classes=output_size).to(device_name)
+            model = BayesianUNetPP(input_channels=input_size + 1, num_classes=output_size, device=device_name).to(device_name)
             model.load_state_dict(torch.load(model_weight_path)["state_dict"])
             
             model = model.eval()
@@ -254,8 +252,8 @@ for p in range(prediction_month):
             #np.savetxt(template_path+"/stds.txt", stds)
             
             nll, sharpness_per_pixel, mae, rmse = compute_metrics(preds, np.asarray(all_std_preds).squeeze(1), output_tensor)
-            np.savetxt(template_path+"/metric_sharpness.txt", sharpness_per_pixel)
-            np.savetxt(template_path+"/metric_nll.txt", nll)
+            #np.savetxt(template_path+"/metric_sharpness.txt", sharpness_per_pixel)
+            #np.savetxt(template_path+"/metric_nll.txt", nll)
             np.savetxt(template_path+"/metric_acc_mae.txt", mae)
             np.savetxt(template_path+"/metric_acc_rmse.txt", rmse)
             plot_metrics(model_type)

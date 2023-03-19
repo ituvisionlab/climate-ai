@@ -26,19 +26,22 @@ def rmse2d(mean_preds, targets):
 def compute_metrics(mean_preds, std_preds, targets):
     nll = nll_gaussian2d(np.log(np.square(std_preds)), mean_preds, targets)
     sharpness_per_pixel = sharpness2d(std_preds)
+    #sharpness_per_pixel = 0
     mae = mae2d(mean_preds, targets)
     rmse = rmse2d(mean_preds, targets)
     
     return nll, sharpness_per_pixel, mae, rmse
 
 def plot(title, metric_name, model_name):
-    current_path = os.path.dirname(os.getcwd())
-    data = np.loadtxt(current_path+'/'+model_name+'/evals/single/ExpYear_3_ExpMonth_2/all/'+metric_name+'.txt')
+    path = os.path.dirname(os.getcwd())
+    current_path = os.path.dirname(path)
+
+    data = np.loadtxt(current_path+'/experiments/'+model_name+'/evals/single/ExpYear_3_ExpMonth_2/all/'+metric_name+'.txt')
     plt.imshow(data)
     plt.title(title + "\n Total: " + str(np.mean(data)))
     plt.colorbar(orientation="horizontal")
     plt.show()
-    plt.savefig(current_path+'/'+model_name+'/evals/single/ExpYear_3_ExpMonth_2/all/'+metric_name+'.png')
+    plt.savefig(current_path+'/experiments/'+model_name+'/evals/single/ExpYear_3_ExpMonth_2/all/'+metric_name+'.png')
     plt.clf()
 
 def plot_metrics(model_name):

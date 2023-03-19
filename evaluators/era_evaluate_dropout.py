@@ -24,17 +24,14 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 import os
+import sys
+sys.path.insert(0, os.path.abspath(".."))
 
 import argparse
 
-from serial_experiments.model import UNet
-from serial_experiments.model_plusplus import NestedUNet
-from serial_experiments.model_plusplus2_dropout import NestedUNet2 as UNetppDropout
-from serial_experiments.modelpadding import UNet as Unetcircular
-from serial_experiments.models.resnext_model import custom_resnext, custom_resnext2, custom_resnext_pretrained
-from serial_experiments.models.seg_models import UNetPlusPlus, PSPNet, UNetSE, DeepLabV3, UNetJ
-from serial_experiments.model_bayesian import BayesianUNetPP
-from serial_experiments.model_calib import heteroscedastic_loss, calibModel, heteroscedastic_loss2
+from models.model_plusplus2_dropout import NestedUNet2 as UNetppDropout
+from models.modelpadding import UNet as Unetcircular
+from models.model_bayesian import BayesianUNetPP
 from metrics import *
 
 from utils import *
@@ -145,7 +142,7 @@ lon = np.array(vars_handle["lon"])
 lat = np.array(vars_handle["lat"])
 
 # Generate an area grid in order to let model notice the earth projection errors
-altitude_map = np.load('/home/bugra/climate-ai/serial_experiments/meritdem_aligned_image.npy') / 10
+altitude_map = np.load('../../info/meritdem_aligned_image.npy') / 10
 if model_type == "CMIP6-differentDA":
     da = generate_fake_area_grid(lat, lon)
 if (model_type == "CMIP6-altitude-circular-conv") or (model_type == "CMIP6-finetune-altitude-circular-conv") or (model_type == "CMIP6-UNet-AttentionSE") or (model_type=="CMIP6-UNetPlusPlus" or (model_type == "CMIP6-UNet-AttentionSE-withoutDA") or (model_type == "CMIP6-NestedUNet") or (model_type=="CMIP6-finetune-NestedUNet") or (model_type=="CMIP6-NestedUNet2") or (model_type=="CMIP6-calib1") or (model_type=="CMIP6-BayesianUNetPP")):
@@ -277,7 +274,7 @@ for p in range(prediction_month):
                 model = calibModel(in_channels=input_size+1, out_channels=output_size, dropout=0.0, model_name="CMIP6-NestedUNet2", years=year, months=month, path=True, finetuned=True, prediction_month=1).to(device_name)
             elif(model_type == "CMIP6-BayesianUNetPP"):
                 model = BayesianUNetPP(input_channels=input_size + 1, num_classes=output_size).to(device_name)
-            elif(model_type == "CMIP6-UNetppDropout"):
+            elif "dropout" in model_type.lower():
                 model = UNetppDropout(input_channels=input_size + 1, num_classes=output_size).to(device_name)
             else:
                 model = Unetcircular(n_channels=input_size + 1, n_classes=output_size).to(device_name)
@@ -305,6 +302,7 @@ for p in range(prediction_month):
                 all_std_preds.append(std_pred)
 
             preds = np.concatenate(all_preds, axis=0)
+            print(np.asarray(all_std_preds).squeeze(1))
             
             # Save all predictions and ground truths
             np.save(template_path+'/all_preds.npy', preds, allow_pickle=True)
@@ -314,7 +312,7 @@ for p in range(prediction_month):
             #nll = nll_gaussian2d(np.log(np.square(all_std_preds)), mean_pred, output_tensor[i])
             #all_nll_per_pixel = np.flip(nll, axis=0)
             # Compute metrics
-            nll, sharpness_per_pixel, mae, rmse = compute_metrics(preds, np.asarray(all_std_preds).squeeze(1), output_tensor)
+            nll, sharpness_per_pixel, mae, rmse = compute_metrics(preds, np.asarray(all_std_preds).squeeze(1) + 1e-7, output_tensor)
             np.savetxt(template_path+"/metric_sharpness.txt", sharpness_per_pixel)
             np.savetxt(template_path+"/metric_nll.txt", nll)
             np.savetxt(template_path+"/metric_acc_mae.txt", mae)

@@ -74,7 +74,7 @@ class NestedUNet2(nn.Module):
         self.training = True
 
     def forward(self, input):
-        p = 0.1
+        p = 0.4
         x0_0 = self.conv0_0(input) #down
         x1_0 = self.conv1_0(self.pool(x0_0)) #down
         x0_1 = F.dropout(self.conv0_1(torch.cat([x0_0, self.up(x1_0)], 1)), p=p) # inter

@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 from models.model_bayesian import BayesianUNetPP
 from torch.utils.data import Dataset
-from utils import *
+from train_utils import *
 from evaluators.utils import *
 
 import warnings
@@ -61,15 +61,15 @@ prereport_freq = 100
 
 # From the user take the years and months as integers with argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("--years", type=int, default=1)
+parser.add_argument("--years", type=int, default=3)
 parser.add_argument("--months", type=int, default=2)
-parser.add_argument("--batch_size", type=int, default=32)
+parser.add_argument("--batch_size", type=int, default=16)
 parser.add_argument("--epochs", type=int, default=50)
-parser.add_argument("--device", type=str, default="cuda:0")
+parser.add_argument("--device", type=str, default="cuda:1")
 parser.add_argument("--prediction_month", type=int, default=1)
 parser.add_argument("--positional_encoding", type=bool, default=False)
-parser.add_argument("--template_path", type=str, default="CMIP6")
-parser.add_argument("--model", type=str, default="")
+parser.add_argument("--template_path", type=str, default="../experiments/CMIP6-TCN3D")
+parser.add_argument("--model", type=str, default="CMIP6-TCN3D")
 parser.add_argument("--kl_coef", type=int, default=1)
 
 # python trainer.py --years 2 --months 2 --batch_size 32 --epochs 200
@@ -107,7 +107,7 @@ main_path_cesm = "/mnt/data/CMIP6_REGRID/Amon/tas/tas.nc"
 vars_handle = xr.open_dataset(os.path.join(main_path_cesm))
 
 # Load longitude and latitude
-altitude_map = np.load('meritdem_aligned_image.npy') / 10
+altitude_map = np.load('../info/meritdem_aligned_image.npy') / 10
 lon = np.array(vars_handle["lon"])
 lat = np.array(vars_handle["lat"])
 
@@ -137,8 +137,8 @@ grid_width = da.shape[1]
 # Standardization parameters
 attribute_norm_vals = {
     "tas": (
-        np.load("../../statistics/tas_mean.npy"),
-        np.load("../../statistics/tas_std.npy"),
+        np.load("../statistics/tas_mean.npy"),
+        np.load("../statistics/tas_std.npy"),
     ),
 }
 
@@ -322,6 +322,7 @@ def train_epoch(model, optimizer, loader, criterion):
         input_data = input_data.to(device_name)
         output_data = output_data.to(device_name)
 
+        print(input_data.shape)
         output_pred = model(input_data)
         optimizer.zero_grad()
 
@@ -329,6 +330,8 @@ def train_epoch(model, optimizer, loader, criterion):
             output_pred = output_pred[0]
 
         output_pred = output_pred.squeeze(1)
+        print(output_pred[0], output_data[0])
+        print(torch.nn.functional.mse_loss(output_pred, output_data))
 
         if "resnext" in model_name:
             if prediction_month == 1:

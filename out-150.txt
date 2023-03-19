@@ -1,0 +1,146 @@
+DIRECTORY ALREADY EXISTS, continuing
+[-38 -37 -36 -35 -34 -26 -25 -24 -23 -22 -14 -13 -12 -11 -10  -2  -1]
+Creating input and output tensors...
+Creating handle...
+Loading data to memory...
+Model initializing: Training starting...
+(1,)
+Epoch: 0, Train MSE Loss: 0.411009, Train KL Loss: 2.831503, Val MSE Loss: 0.203492, Val KL Loss: 0.551825, Time: 664.69
+(2,)
+Epoch: 1, Train MSE Loss: 0.198714, Train KL Loss: 0.257433, Val MSE Loss: 0.201020, Val KL Loss: 0.122557, Time: 661.58
+(3,)
+Epoch: 2, Train MSE Loss: 0.185914, Train KL Loss: 0.107272, Val MSE Loss: 0.185980, Val KL Loss: 0.116968, Time: 661.03
+(4,)
+Epoch: 3, Train MSE Loss: 0.183261, Train KL Loss: 0.144764, Val MSE Loss: 0.150430, Val KL Loss: 0.167348, Time: 754.79
+(5,)
+Epoch: 4, Train MSE Loss: 0.176810, Train KL Loss: 0.178277, Val MSE Loss: 0.196516, Val KL Loss: 0.187867, Time: 658.40
+(6,)
+Epoch: 5, Train MSE Loss: 0.176577, Train KL Loss: 0.192131, Val MSE Loss: 0.165745, Val KL Loss: 0.199976, Time: 654.20
+(7,)
+Epoch: 6, Train MSE Loss: 0.176389, Train KL Loss: 0.199176, Val MSE Loss: 0.139781, Val KL Loss: 0.203155, Time: 651.88
+(8,)
+Epoch: 7, Train MSE Loss: 0.174329, Train KL Loss: 0.201973, Val MSE Loss: 0.156704, Val KL Loss: 0.195981, Time: 650.37
+(9,)
+Epoch: 8, Train MSE Loss: 0.170215, Train KL Loss: 0.198125, Val MSE Loss: 0.163571, Val KL Loss: 0.198688, Time: 649.71
+(10,)
+Epoch: 9, Train MSE Loss: 0.173727, Train KL Loss: 0.203210, Val MSE Loss: 0.170946, Val KL Loss: 0.207258, Time: 647.02
+(11,)
+Epoch: 10, Train MSE Loss: 0.175586, Train KL Loss: 0.200101, Val MSE Loss: 0.158370, Val KL Loss: 0.208052, Time: 649.20
+(12,)
+Epoch: 11, Train MSE Loss: 0.170444, Train KL Loss: 0.203726, Val MSE Loss: 0.169584, Val KL Loss: 0.200939, Time: 662.68
+(13,)
+Epoch: 12, Train MSE Loss: 0.170778, Train KL Loss: 0.204139, Val MSE Loss: 0.169021, Val KL Loss: 0.202156, Time: 645.75
+(14,)
+Epoch: 13, Train MSE Loss: 0.172699, Train KL Loss: 0.204339, Val MSE Loss: 0.142590, Val KL Loss: 0.202286, Time: 647.95
+(15,)
+Epoch: 14, Train MSE Loss: 0.169138, Train KL Loss: 0.203048, Val MSE Loss: 0.166478, Val KL Loss: 0.199605, Time: 647.34
+(16,)
+Epoch: 15, Train MSE Loss: 0.167632, Train KL Loss: 0.204276, Val MSE Loss: 0.170160, Val KL Loss: 0.204178, Time: 646.12
+(17,)
+Epoch: 16, Train MSE Loss: 0.173327, Train KL Loss: 0.205182, Val MSE Loss: 0.141070, Val KL Loss: 0.208465, Time: 644.80
+(18,)
+Epoch: 17, Train MSE Loss: 0.167575, Train KL Loss: 0.204013, Val MSE Loss: 0.143929, Val KL Loss: 0.207566, Time: 646.93
+(19,)
+Epoch: 18, Train MSE Loss: 0.169644, Train KL Loss: 0.205806, Val MSE Loss: 0.152706, Val KL Loss: 0.203535, Time: 650.43
+(20,)
+Epoch: 19, Train MSE Loss: 0.173816, Train KL Loss: 0.207559, Val MSE Loss: 0.165656, Val KL Loss: 0.206711, Time: 651.21
+(21,)
+Epoch: 20, Train MSE Loss: 0.169898, Train KL Loss: 0.206672, Val MSE Loss: 0.139977, Val KL Loss: 0.207969, Time: 660.16
+(22,)
+Epoch: 21, Train MSE Loss: 0.167008, Train KL Loss: 0.206215, Val MSE Loss: 0.183928, Val KL Loss: 0.201261, Time: 669.30
+(23,)
+Epoch: 22, Train MSE Loss: 0.166416, Train KL Loss: 0.205602, Val MSE Loss: 0.162568, Val KL Loss: 0.205571, Time: 646.03
+(24,)
+Epoch: 23, Train MSE Loss: 0.164327, Train KL Loss: 0.206101, Val MSE Loss: 0.224257, Val KL Loss: 0.203177, Time: 645.17
+(25,)
+Epoch: 24, Train MSE Loss: 0.166404, Train KL Loss: 0.206196, Val MSE Loss: 0.143318, Val KL Loss: 0.208938, Time: 686.02
+(26,)
+Epoch: 25, Train MSE Loss: 0.164529, Train KL Loss: 0.204306, Val MSE Loss: 0.196720, Val KL Loss: 0.200587, Time: 654.67
+(27,)
+Epoch: 26, Train MSE Loss: 0.161646, Train KL Loss: 0.202996, Val MSE Loss: 0.136681, Val KL Loss: 0.202776, Time: 726.29
+(28,)
+Epoch: 27, Train MSE Loss: 0.166712, Train KL Loss: 0.204691, Val MSE Loss: 0.149317, Val KL Loss: 0.209413, Time: 676.33
+(29,)
+Epoch: 28, Train MSE Loss: 0.164278, Train KL Loss: 0.206400, Val MSE Loss: 0.135420, Val KL Loss: 0.205531, Time: 679.09
+(30,)
+Epoch: 29, Train MSE Loss: 0.164119, Train KL Loss: 0.203739, Val MSE Loss: 0.131349, Val KL Loss: 0.204726, Time: 723.69
+(31,)
+Epoch: 30, Train MSE Loss: 0.165170, Train KL Loss: 0.206486, Val MSE Loss: 0.142476, Val KL Loss: 0.206327, Time: 766.95
+(32,)
+Epoch: 31, Train MSE Loss: 0.164714, Train KL Loss: 0.206639, Val MSE Loss: 0.152115, Val KL Loss: 0.210499, Time: 695.62
+(33,)
+Epoch: 32, Train MSE Loss: 0.165241, Train KL Loss: 0.205210, Val MSE Loss: 0.164018, Val KL Loss: 0.207027, Time: 1166.26
+(34,)
+Epoch: 33, Train MSE Loss: 0.167340, Train KL Loss: 0.204717, Val MSE Loss: 0.150079, Val KL Loss: 0.205831, Time: 657.18
+(35,)
+Epoch: 34, Train MSE Loss: 0.163171, Train KL Loss: 0.204765, Val MSE Loss: 0.179679, Val KL Loss: 0.204455, Time: 666.12
+(36,)
+Epoch: 35, Train MSE Loss: 0.165612, Train KL Loss: 0.205833, Val MSE Loss: 0.160343, Val KL Loss: 0.205828, Time: 667.32
+(37,)
+Epoch: 36, Train MSE Loss: 0.163957, Train KL Loss: 0.206190, Val MSE Loss: 0.143899, Val KL Loss: 0.202557, Time: 664.92
+(38,)
+Epoch: 37, Train MSE Loss: 0.165265, Train KL Loss: 0.206390, Val MSE Loss: 0.134649, Val KL Loss: 0.203607, Time: 689.13
+(39,)
+Epoch: 38, Train MSE Loss: 0.160901, Train KL Loss: 0.202807, Val MSE Loss: 0.179792, Val KL Loss: 0.201561, Time: 718.29
+(40,)
+Epoch: 39, Train MSE Loss: 0.163240, Train KL Loss: 0.203207, Val MSE Loss: 0.168458, Val KL Loss: 0.199879, Time: 703.24
+(41,)
+Epoch: 40, Train MSE Loss: 0.167044, Train KL Loss: 0.204795, Val MSE Loss: 0.157625, Val KL Loss: 0.209847, Time: 693.50
+(42,)
+Epoch: 41, Train MSE Loss: 0.163142, Train KL Loss: 0.203944, Val MSE Loss: 0.159843, Val KL Loss: 0.202935, Time: 1089.38
+(43,)
+Epoch: 42, Train MSE Loss: 0.160873, Train KL Loss: 0.203997, Val MSE Loss: 0.165459, Val KL Loss: 0.203130, Time: 657.59
+(44,)
+Epoch: 43, Train MSE Loss: 0.164798, Train KL Loss: 0.204476, Val MSE Loss: 0.178285, Val KL Loss: 0.206569, Time: 792.38
+(45,)
+Epoch: 44, Train MSE Loss: 0.166296, Train KL Loss: 0.206137, Val MSE Loss: 0.171705, Val KL Loss: 0.209322, Time: 672.28
+(46,)
+Epoch: 45, Train MSE Loss: 0.165715, Train KL Loss: 0.205847, Val MSE Loss: 0.155486, Val KL Loss: 0.201940, Time: 3142.80
+(47,)
+Epoch: 46, Train MSE Loss: 0.164872, Train KL Loss: 0.204928, Val MSE Loss: 0.154408, Val KL Loss: 0.203418, Time: 902.12
+(48,)
+Epoch: 47, Train MSE Loss: 0.167125, Train KL Loss: 0.204970, Val MSE Loss: 0.154716, Val KL Loss: 0.206333, Time: 698.63
+(49,)
+Epoch: 48, Train MSE Loss: 0.163119, Train KL Loss: 0.206794, Val MSE Loss: 0.159575, Val KL Loss: 0.204075, Time: 929.08
+(50,)
+Epoch: 49, Train MSE Loss: 0.166428, Train KL Loss: 0.206087, Val MSE Loss: 0.162864, Val KL Loss: 0.208587, Time: 686.25
+(51,)
+Epoch: 50, Train MSE Loss: 0.166913, Train KL Loss: 0.207318, Val MSE Loss: 0.166534, Val KL Loss: 0.204600, Time: 833.49
+(52,)
+Epoch: 51, Train MSE Loss: 0.164957, Train KL Loss: 0.207225, Val MSE Loss: 0.162098, Val KL Loss: 0.200782, Time: 678.57
+(53,)
+Epoch: 52, Train MSE Loss: 0.162961, Train KL Loss: 0.204310, Val MSE Loss: 0.166295, Val KL Loss: 0.203388, Time: 831.88
+(54,)
+Epoch: 53, Train MSE Loss: 0.165334, Train KL Loss: 0.205051, Val MSE Loss: 0.173682, Val KL Loss: 0.204454, Time: 1139.67
+(55,)
+Epoch: 54, Train MSE Loss: 0.162155, Train KL Loss: 0.205094, Val MSE Loss: 0.167077, Val KL Loss: 0.208171, Time: 680.86
+(56,)
+Epoch: 55, Train MSE Loss: 0.162224, Train KL Loss: 0.205733, Val MSE Loss: 0.158463, Val KL Loss: 0.204175, Time: 755.74
+(57,)
+Epoch: 56, Train MSE Loss: 0.163001, Train KL Loss: 0.205967, Val MSE Loss: 0.158051, Val KL Loss: 0.206568, Time: 1071.64
+(58,)
+Epoch: 57, Train MSE Loss: 0.162735, Train KL Loss: 0.207061, Val MSE Loss: 0.169194, Val KL Loss: 0.203054, Time: 926.02
+(59,)
+Epoch: 58, Train MSE Loss: 0.168051, Train KL Loss: 0.206433, Val MSE Loss: 0.195116, Val KL Loss: 0.204453, Time: 679.00
+(60,)
+Epoch: 59, Train MSE Loss: 0.164842, Train KL Loss: 0.206220, Val MSE Loss: 0.156440, Val KL Loss: 0.208803, Time: 679.30
+(61,)
+Epoch: 60, Train MSE Loss: 0.167099, Train KL Loss: 0.205422, Val MSE Loss: 0.157799, Val KL Loss: 0.206494, Time: 681.67
+(62,)
+Epoch: 61, Train MSE Loss: 0.165864, Train KL Loss: 0.205902, Val MSE Loss: 0.181200, Val KL Loss: 0.207270, Time: 7747.31
+(63,)
+Epoch: 62, Train MSE Loss: 0.162162, Train KL Loss: 0.206269, Val MSE Loss: 0.166406, Val KL Loss: 0.204953, Time: 847.80
+(64,)
+Epoch: 63, Train MSE Loss: 0.165760, Train KL Loss: 0.204097, Val MSE Loss: 0.156627, Val KL Loss: 0.206288, Time: 776.13
+(65,)
+Epoch: 64, Train MSE Loss: 0.161850, Train KL Loss: 0.204521, Val MSE Loss: 0.146656, Val KL Loss: 0.202819, Time: 764.96
+(66,)
+Epoch: 65, Train MSE Loss: 0.163023, Train KL Loss: 0.205511, Val MSE Loss: 0.157564, Val KL Loss: 0.206374, Time: 670.21
+(67,)
+Epoch: 66, Train MSE Loss: 0.159356, Train KL Loss: 0.203459, Val MSE Loss: 0.149087, Val KL Loss: 0.205208, Time: 716.85
+(68,)
+Epoch: 67, Train MSE Loss: 0.163949, Train KL Loss: 0.204523, Val MSE Loss: 0.135082, Val KL Loss: 0.205994, Time: 899.17
+(69,)
+Epoch: 68, Train MSE Loss: 0.164708, Train KL Loss: 0.205632, Val MSE Loss: 0.141660, Val KL Loss: 0.206020, Time: 1072.13
+(70,)
+Epoch: 69, Train MSE Loss: 0.163720, Train KL Loss: 0.206046, Val MSE Loss: 0.160323, Val KL Loss: 0.203745, Time: 696.38
