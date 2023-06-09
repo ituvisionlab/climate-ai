@@ -1,5 +1,5 @@
 # climate-ai
-This repository is a implementation of [Climate Model Driven Seasonal Forecasting Approach with Deep Learning](https://arxiv.org/abs/2302.10480), accepted to Environmental Data Sciences Journal. 
+This repository is a implementation of [Climate Model Driven Seasonal Forecasting Approach with Deep Learning](https://arxiv.org/abs/2302.10480), accepted to Environmental Data Sciences Journal. For further inquiries about the code, please contact busraasan2@gmail.com.
 
 ## Requirements
 
