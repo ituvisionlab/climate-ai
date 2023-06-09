@@ -11,7 +11,7 @@ pip install -r requirements.txt
 
 ## Dataset
 
-Even though CMIP6 and ERA5 is available online, our regreidded data is not available yet. This section will be updated when it is ready.
+Even though CMIP6 and ERA5 is available online, our regridded data is not available yet. This section will be updated when it is ready.
 
 ## Training
 
