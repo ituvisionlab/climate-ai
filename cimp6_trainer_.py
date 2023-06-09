@@ -4,7 +4,6 @@ import torch.nn as nn
 import numpy as np
 import xarray as xr
 
-import argparse
 import os
 
 import time
@@ -14,11 +13,12 @@ from models.model_bayesian import BayesianUNetPP
 from torch.utils.data import Dataset
 from train_utils import *
 from evaluators.utils import *
+from args_parser import get_args
 
 import warnings
 
 from PIL import Image
-import tqdm
+import logging
 
 warnings.filterwarnings("ignore")
 
@@ -60,30 +60,20 @@ plot_freq = 1
 prereport_freq = 100
 
 # From the user take the years and months as integers with argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("--years", type=int, default=3)
-parser.add_argument("--months", type=int, default=2)
-parser.add_argument("--batch_size", type=int, default=16)
-parser.add_argument("--epochs", type=int, default=50)
-parser.add_argument("--device", type=str, default="cuda:1")
-parser.add_argument("--prediction_month", type=int, default=1)
-parser.add_argument("--positional_encoding", type=bool, default=False)
-parser.add_argument("--template_path", type=str, default="../experiments/CMIP6-TCN3D")
-parser.add_argument("--model", type=str, default="CMIP6-TCN3D")
-parser.add_argument("--kl_coef", type=int, default=1)
+parser = get_args()
 
-# python trainer.py --years 2 --months 2 --batch_size 32 --epochs 200
-
-years = parser.parse_args().years
-months = parser.parse_args().months
-batch_size = parser.parse_args().batch_size
-epochs = parser.parse_args().epochs
-device_name = parser.parse_args().device
-prediction_month = parser.parse_args().prediction_month
-positional_encoding = parser.parse_args().positional_encoding
-template_path = parser.parse_args().template_path
-model_name = parser.parse_args().model
-coef = parser.parse_args().kl_coef
+years = parser.years
+months = parser.months
+batch_size = parser.batch_size
+epochs = parser.epochs
+device_name = parser.device
+prediction_month = parser.prediction_month
+positional_encoding = parser.positional_encoding
+template_path = parser.template_path
+model_name = parser.model
+coef = parser.kl_coef
+lr = parser.lr
+weight_decay = parser.weight_decay
 
 main_path = template_path
 
@@ -136,9 +126,9 @@ grid_width = da.shape[1]
 
 # Standardization parameters
 attribute_norm_vals = {
-    "tas": (
-        np.load("../statistics/tas_mean.npy"),
-        np.load("../statistics/tas_std.npy"),
+    parser.climate_var: (
+        np.load("../statistics/"+parser.climate_var+"_mean.npy"),
+        np.load("../statistics/"+parser.climate_var+"_std.npy"),
     ),
 }
 
@@ -147,7 +137,7 @@ attribute_norm_vals = {
 ###### PREPARE DATA ###########################################################
 
 # Select attributes
-attribute_name = "tas"
+attribute_name = parser.climate_var
 ens_ids = np.arange(0, 9)
 
 # Create template
@@ -232,10 +222,13 @@ class Reader(Dataset):
         ) / attribute_norm_vals[attribute_name][1]
 
         # Add area array to input data
-        if not model_name == "CMIP6-withoutDA" and not model_name == "CMIP6-UNet-Attention-withoutDA":
-            input_data = np.concatenate((input_data, np.expand_dims(da, axis=0)), axis=0)
-        if positional_encoding:
-            input_data = np.concatenate((input_data, np.expand_dims(PE, axis=0)), axis=0)
+        if "lstmpcl" in model_name.lower():
+            pass
+        else:
+            if not model_name == "CMIP6-withoutDA" and not model_name == "CMIP6-UNet-Attention-withoutDA":
+                input_data = np.concatenate((input_data, np.expand_dims(da, axis=0)), axis=0)
+            if positional_encoding:
+                input_data = np.concatenate((input_data, np.expand_dims(PE, axis=0)), axis=0)
         # Create tensors
         input_data = torch.tensor(input_data, dtype=torch.float32)
         output_data = torch.tensor(output_data, dtype=torch.float32)
@@ -321,27 +314,56 @@ def train_epoch(model, optimizer, loader, criterion):
 
         input_data = input_data.to(device_name)
         output_data = output_data.to(device_name)
-
-        print(input_data.shape)
+        if "lstm" in model_name.lower() or "kamu" in model_name.lower():
+            input_data = torch.unsqueeze(input_data, dim=2)
         output_pred = model(input_data)
+
         optimizer.zero_grad()
 
         if model_name == "CMIP6-UNet-Attention-withoutDA" or "Attention" in model_name:
             output_pred = output_pred[0]
-
-        output_pred = output_pred.squeeze(1)
-        print(output_pred[0], output_data[0])
-        print(torch.nn.functional.mse_loss(output_pred, output_data))
-
+        if "lstm2" in model_name.lower():
+            output_pred = output_pred[0][0][-1]
+        if (("kamu" in model_name.lower())):
+            output_pred = output_pred[0]
+        if "lstm" in model_name.lower() and input_data.dim() == 5:
+            output_pred = output_pred[0][-1]
+        elif "lstmpcl" in model_name.lower():
+            output_pred = output_pred[0]
+        # elif "lstm" in model_name.lower():
+        #     output_pred = output_pred[0][-1]
+            #output_pred = torch.stack(output_pred[0])[0, 0, -1, 0, ...]
+        # elif "gru" in model_name.lower():
+        #     output_pred = output_pred[-1]
+        else:
+            output_pred = output_pred.squeeze(1)
+    
         if "resnext" in model_name:
             if prediction_month == 1:
                 output_pred = output_pred.reshape(-1, 192, 288)
             else:
                 output_pred = output_pred.reshape(-1, prediction_month, 192, 288)
-                
-        loss = criterion(output_pred, output_data)
 
-        loss.backward()
+        if "lstm2" in model_name.lower():
+            loss = criterion(torch.squeeze(output_pred, dim=1), output_data)
+        if "kamu" in model_name.lower():
+            loss = criterion(torch.unsqueeze(output_pred[:, :, -1, :, :], dim=2), output_data)
+        elif "lstm" in model_name.lower():
+            for_all = False
+            if for_all:
+                output_data = torch.concat((input_data[:, 1:, :, :, :], torch.unsqueeze(torch.unsqueeze(output_data, dim=1),dim=1)), dim=1)
+                loss = criterion(output_pred, output_data)
+            else:
+                output_pred = torch.squeeze(output_pred[:, -1, :, :, :], dim=1)
+                loss = criterion(output_pred, output_data)
+            # print(output_pred.min(), output_pred.max(), output_pred.mean(), output_pred.std())
+            # print(output_data.min(), output_data.max(), output_data.mean(), output_data.std())
+            # quit()
+        else:
+            loss = criterion(output_pred, output_data)
+
+        # loss.backward(retain_graph=True)
+        loss.backward(retain_graph=False)
         optimizer.step()
         total_loss += loss.item()
 
@@ -356,18 +378,38 @@ def val_epoch(model, loader, criterion):
         input_data = input_data.to(device_name)
         output_data = output_data.to(device_name)
         
+        if "lstm" in model_name.lower():
+            input_data = torch.unsqueeze(input_data, dim=2)
+
         output_pred = model(input_data)
         if model_name == "CMIP6-UNet-Attention-withoutDA" or "Attention" in model_name:
             output_pred = output_pred[0]
 
-        output_pred = output_pred.squeeze(1)
+        if "lstm2" in model_name.lower():
+            output_pred = output_pred[0][0][-1]
+        elif "lstmpcl" in model_name.lower():
+            output_pred = output_pred[-1][-1][-1]
+
+        elif "lstm" in model_name.lower():
+            output_pred = output_pred[0][-1]
+            #output_pred = torch.squeeze(output_pred, dim=0)
+            #output_pred = torch.stack(output_pred[0])[0, 0, -1, 0, ...]
+        else:
+            output_pred = output_pred.squeeze(1)
 
         if "resnext" in model_name:
             if prediction_month == 1:
                 output_pred = output_pred.reshape(-1, 192, 288)
             else:
                 output_pred = output_pred.reshape(-1, prediction_month, 192, 288)
-        loss = criterion(output_pred, output_data)
+            
+        if "lstm" in model_name.lower():
+            output_data = torch.concat((input_data[:, 1:, :, :, :], torch.unsqueeze(torch.unsqueeze(output_data, dim=1),dim=1)), dim=1)
+            loss = criterion(output_pred, output_data)
+        elif "kamu" in model_name.lower():
+            loss = criterion(torch.unsqueeze(output_pred[:, :, -1, :, :], dim=2), output_data)
+        else:
+            loss = criterion(output_pred, output_data)
         total_loss += loss.item()
 
     return total_loss / len(loader)
@@ -376,19 +418,25 @@ def val_epoch(model, loader, criterion):
 ###############################################################################
 
 print("Model initializing: ", end="")
-
 if positional_encoding:
     input_size += 1
 
-model = model_select(model_name, input_size, output_size, device_name).to(device_name)
+model = model_select(model_name, input_size, output_size, device_name, batch_size).to(device_name)
+if "CMIP6-convLSTM" == model_name:
+    path = os.path.dirname(os.getcwd())
+    model_weight_path = path + "/experiments/" + model_name + "/weights/CIMP6_year-%d-month-%d-+%d/best.pth" % (years, months, prediction_month)
+    model.load_state_dict(torch.load(model_weight_path)["state_dict"])
 
 # Create optimizer
-
 criterion = torch.nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=1.0e-3, weight_decay=1.0e-3)
-
+optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-5)
 # Training loop
-r_schedual = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.9)
+r_schedual = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
+# r_schedual=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,
+#                                                         factor=0.5,
+#                                                         patience=4,
+#                                                         verbose=True)
+#r_schedual=torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200, eta_min=1e-7)
 
 best_model = None
 best_loss = 99999
@@ -465,4 +513,7 @@ else:
         report = "Epoch: %d, Train Loss: %.6f, Val Loss: %.6f, Time: %.2f" % (
                 epoch, train_loss, val_loss, time.time() - start_time
             )
+        f = open(template_path+"/output.txt", "a+")
+        f.write(report+'\n')
+        f.close()
         print(report)
