@@ -1,6 +1,10 @@
 # climate-ai
 This repository is a implementation of [Climate Model Driven Seasonal Forecasting Approach with Deep Learning](https://arxiv.org/abs/2302.10480), accepted to Environmental Data Sciences Journal. For further inquiries about the code, please contact busraasan2@gmail.com.
 
+<p align="center">
+  <img src="images/network-diagram.png" title="UNet++ Architecture">
+</p>
+
 ## Requirements
 
 To install requirements:
@@ -36,5 +40,16 @@ In order to train models for monthly average output, command below can be used.
 ```train
 python cimp6_trainer_average.py
 ```
+
+## Results
+Comparison against CMIP6 predictions.
+<p align="center">
+  <img src="images/Figure2makale.png" width="350" title="Anomaly comparison">
+  <img src="images/rmse.png" width="350" title="MAE Comparison">
+</p>
+
+<p align="center">
+  <img src="images/tablo.png" width="350" title="Benchmark of lag years and months, both historical and periodical experiments">
+</p>
 
 
