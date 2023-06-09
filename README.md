@@ -14,7 +14,7 @@ pip install -r requirements.txt
 Even though CMIP6 and ERA5 is available online, our regreidded data is not available yet. This section will be updated when it is ready.
 
 ## Training
-_
+
 In order to train the model, use the following command after configuring the args_parser.py file. In args_parser, one can set configurations such as what model, the number of lag years, predecessors/successors to use together with training parameters such as learning rate, weight decay etc.
 
 ```train
