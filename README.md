@@ -44,12 +44,13 @@ python cimp6_trainer_average.py
 ## Results
 Comparison against CMIP6 predictions.
 <p align="center">
-  <img src="images/Figure2makale.png" width="350" title="Anomaly comparison">
-  <img src="images/rmse.png" width="350" title="MAE Comparison">
+  <img src="images/Figure2makale.png" height="250" title="Anomaly comparison">
+  <img src="images/rmse.png" height="250" title="MAE Comparison">
 </p>
 
+Experiments Benchmark
 <p align="center">
-  <img src="images/tablo.png" width="350" title="Benchmark of lag years and months, both historical and periodical experiments">
+  <img src="images/tablo.png"  title="Benchmark of lag years and months, both historical and periodical experiments">
 </p>
 
 
